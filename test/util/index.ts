@@ -1,7 +1,5 @@
 import { TLSSocket, ConnectionOptions } from 'tls';
-import {
-  Socket,
-} from '../../src';
+import {Socket } from 'json-rpc-tls';
 
 class TestUtils {
   static constructSocket(host: string, port: number, options: ConnectionOptions = {

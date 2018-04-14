@@ -1,4 +1,3 @@
-import { TLSSocket } from 'tls';
 import { ElectrumUtil } from '../util';
 import { IElectrumRequestBody } from '../';
 
