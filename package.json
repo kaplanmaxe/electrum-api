@@ -1,0 +1,28 @@
+{
+  "name": "electrum-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:kaplanmaxe/electrum-api.git",
+  "author": "Max Kaplan <kaplanmaxe3@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.1.2",
+    "@types/mocha": "^5.0.0",
+    "@types/node": "^9.6.5",
+    "chai": "^4.1.2",
+    "mocha": "^5.1.0",
+    "ts-node": "^5.0.1",
+    "tslint-kaplankomputing": "^1.0.0",
+    "typescript": "^2.8.1"
+  },
+  "dependencies": {
+    "json-rpc-tls": "^1.2.0"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "compile:watch": "tsc -w",
+    "prepublish": "yarn compile",
+    "test": "mocha",
+    "lint": "tslint 'src/**/*.ts?(x)'"
+  }
+}

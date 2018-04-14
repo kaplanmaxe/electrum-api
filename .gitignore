@@ -1,0 +1,5 @@
+node_modules/
+certs/
+dist/
+src/example.ts
+yarn-error.log
