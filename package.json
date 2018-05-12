@@ -1,6 +1,6 @@
 {
   "name": "electrum-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "description": "Complete ibrary for communicating with Electrum servers with support for all methods",
   "types": "dist/index.d.ts",
