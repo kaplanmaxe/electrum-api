@@ -22,6 +22,7 @@
     "json-rpc-tls": "^1.2.2"
   },
   "scripts": {
+    "install": "npm run compile",
     "compile": "tsc",
     "compile:watch": "tsc -w",
     "prepublish": "yarn compile",
