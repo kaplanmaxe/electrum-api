@@ -21,7 +21,7 @@ describe('Electrum blockchain method tests', () => {
     const network = bitcoinjs.networks.bitcoin;
     const scripthash = Utils.addressToScriptHash('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', network);
 
-    const response = await Blockchain.ScriptHashSubscribe({
+    const response = await Blockchain.scriptHashSubscribe({
       socket,
       id: 1,
       params: [scripthash]
@@ -37,7 +37,7 @@ describe('Electrum blockchain method tests', () => {
     const network = bitcoinjs.networks.bitcoin;
     const scripthash = Utils.addressToScriptHash('1MaxKapqcv8KVHw1mTzZd23uvntnLABvnB', network);
 
-    const response = await Blockchain.ScriptHashGetHistory({
+    const response = await Blockchain.scriptHashGetHistory({
       socket,
       id: 1,
       params: [scripthash],
@@ -53,7 +53,7 @@ describe('Electrum blockchain method tests', () => {
     const network = bitcoinjs.networks.bitcoin;
     const scripthash = Utils.addressToScriptHash('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', network);
 
-    const response = await Blockchain.ScriptHashGetMempool({
+    const response = await Blockchain.scriptHashGetMempool({
       socket,
       id: 1,
       params: [scripthash],
@@ -68,7 +68,7 @@ describe('Electrum blockchain method tests', () => {
     const network = bitcoinjs.networks.bitcoin;
     const scripthash = Utils.addressToScriptHash('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', network);
 
-    const response = await Blockchain.ScriptHashGetBalance({
+    const response = await Blockchain.scriptHashGetBalance({
       socket,
       id: 1,
       params: [scripthash],
@@ -84,7 +84,7 @@ describe('Electrum blockchain method tests', () => {
     const network = bitcoinjs.networks.bitcoin;
     const scripthash = Utils.addressToScriptHash('12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX', network);
 
-    const response = await Blockchain.ScriptHashListUnspent({
+    const response = await Blockchain.scriptHashListUnspent({
       socket,
       id: 1,
       params: [scripthash],
