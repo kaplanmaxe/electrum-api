@@ -12,5 +12,5 @@ export interface IElectrumRequestBody {
 export {
   Server,
   Blockchain,
-  Utils
+  Utils,
 };

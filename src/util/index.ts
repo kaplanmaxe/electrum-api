@@ -14,13 +14,15 @@ class ElectrumUtil {
   }
 }
 
+/* tslint:disable:max-classes-per-file */
 class Utils {
   static addressToScriptHash(address: string, network: any) {
     const script = bitcoinjs.address.toOutputScript(address, network);
     const hash = bitcoinjs.crypto.sha256(script);
     const reversedScriptHash = (Buffer.from(hash.reverse())).toString('hex');
-    return reversedScriptHash
+    return reversedScriptHash;
   }
 }
+/* tslint:enable:max-classes-per-file */
 
 export { ElectrumUtil, Utils };

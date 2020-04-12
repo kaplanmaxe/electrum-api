@@ -12,7 +12,7 @@
     "mocha": "^5.1.0",
     "ts-node": "^5.0.1",
     "tslint-kaplankomputing": "^1.0.0",
-    "typescript": "^2.8.1"
+    "typescript": "^3.1.1"
   },
   "dependencies": {
     "@types/chai": "^4.1.2",
