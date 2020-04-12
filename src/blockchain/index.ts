@@ -13,7 +13,7 @@ class Blockchain {
     return result;
   }
 
-  static async ScriptHashSubscribe(request: IElectrumRequestBody) {
+  static async scriptHashSubscribe(request: IElectrumRequestBody) {
     const result = await ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
@@ -23,7 +23,7 @@ class Blockchain {
     return result;
   }
 
-  static async ScriptHashGetHistory(request: IElectrumRequestBody) {
+  static async scriptHashGetHistory(request: IElectrumRequestBody) {
     const result = await ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
@@ -33,7 +33,7 @@ class Blockchain {
     return result;
   }
 
-  static async ScriptHashGetMempool(request: IElectrumRequestBody) {
+  static async scriptHashGetMempool(request: IElectrumRequestBody) {
     const result = await ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
@@ -43,7 +43,7 @@ class Blockchain {
     return result;
   }
 
-  static async ScriptHashGetBalance(request: IElectrumRequestBody) {
+  static async scriptHashGetBalance(request: IElectrumRequestBody) {
     const result = await ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
@@ -53,7 +53,7 @@ class Blockchain {
     return result;
   }
 
-  static async ScriptHashListUnspent(request: IElectrumRequestBody) {
+  static async scriptHashListUnspent(request: IElectrumRequestBody) {
     const result = await ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
