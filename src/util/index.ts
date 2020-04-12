@@ -1,6 +1,7 @@
 import { TLSSocket } from 'tls';
 import { Socket } from 'json-rpc-tls';
 import { IElectrumRequestBody } from '../';
+import * as bitcoinjs from 'bitcoinjs-lib';
 
 export interface IElectrumRequest extends IElectrumRequestBody {
   method: string;
@@ -13,4 +14,13 @@ class ElectrumUtil {
   }
 }
 
-export { ElectrumUtil };
+class Utils {
+  static addressToScriptHash(address: string, network: any) {
+    const script = bitcoinjs.address.toOutputScript(address, network);
+    const hash = bitcoinjs.crypto.sha256(script);
+    const reversedScriptHash = (Buffer.from(hash.reverse())).toString('hex');
+    return reversedScriptHash
+  }
+}
+
+export { ElectrumUtil, Utils };
