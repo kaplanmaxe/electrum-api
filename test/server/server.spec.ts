@@ -8,14 +8,15 @@ describe('Electrum server method tests', () => {
     const socket = await TestUtils.constructSocket('185.64.116.15', 50002);
     const response = await Server.version({ socket, id: 1 });
     TestUtils.closeSocket(socket);
-    expect(response.result).to.contain('Electrum');
+
+    expect(response.result[0].substring(0, 8)).to.equal('Electrum');
   });
 
   it('should receive banner', async () => {
     const socket = await TestUtils.constructSocket('185.64.116.15', 50002);
     const response = await Server.banner({ socket, id: 1 });
     TestUtils.closeSocket(socket);
-    expect(response.result).to.equal('Welcome to Electrum!');
+    expect(response.result).to.contain('Welcome to this Electrum server!');
   });
 
   it('should receive donation address', async () => {

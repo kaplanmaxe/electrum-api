@@ -1,6 +1,7 @@
 import { TLSSocket  } from 'tls';
 import { Server } from './server';
 import { Blockchain } from './blockchain';
+import { Utils } from './util';
 
 export interface IElectrumRequestBody {
   socket: TLSSocket;
@@ -11,4 +12,5 @@ export interface IElectrumRequestBody {
 export {
   Server,
   Blockchain,
+  Utils,
 };
