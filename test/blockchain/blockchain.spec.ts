@@ -1,32 +1,30 @@
 import { expect } from 'chai';
 import * as fs from 'fs';
-import { Blockchain } from '../../src';
+import { Blockchain, Utils } from '../../src';
 import { TestUtils } from '../util';
 
+import * as bitcoinjs from 'bitcoinjs-lib';
+
 describe('Electrum blockchain method tests', () => {
-  it('should subscribe to receive numblocks', async () => {
-    const socket = await TestUtils.constructSocket('185.64.116.15', 50002);
-    const response = await Blockchain.numBlocksSubscribe({ socket, id: 1 });
-    TestUtils.closeSocket(socket);
-    expect(typeof response.result).to.equal('number');
-  });
 
   it('should subscribe to receive headers', async () => {
     const socket = await TestUtils.constructSocket('185.64.116.15', 50002);
     const response = await Blockchain.headersSubscribe({ socket, id: 1 });
     TestUtils.closeSocket(socket);
-    expect(response.result).to.have.property('block_height');
-    expect(response.result).to.have.property('version');
-    expect(response.result).to.have.property('bits');
-    expect(response.result).to.have.property('nonce');
+    expect(response.result).to.have.property('height');
+    expect(response.result).to.have.property('hex');
   });
 
   it('should subscribe to receive changes to address', async () => {
     const socket = await TestUtils.constructSocket('185.64.116.15', 50002);
-    const response = await Blockchain.addressSubscribe({
+
+    const network = bitcoinjs.networks.bitcoin;
+    const scripthash = Utils.addressToScriptHash('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', network);
+
+    const response = await Blockchain.scriptHashSubscribe({
       socket,
       id: 1,
-      params: ['1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'],
+      params: [scripthash]
     });
     TestUtils.closeSocket(socket);
     expect(response.result).to.not.contain('is not a valid address');
@@ -35,10 +33,14 @@ describe('Electrum blockchain method tests', () => {
 
   it('should get address history', async () => {
     const socket = await TestUtils.constructSocket('185.64.116.15', 50002);
-    const response = await Blockchain.addressGetHistory({
+
+    const network = bitcoinjs.networks.bitcoin;
+    const scripthash = Utils.addressToScriptHash('1MaxKapqcv8KVHw1mTzZd23uvntnLABvnB', network);
+
+    const response = await Blockchain.scriptHashGetHistory({
       socket,
       id: 1,
-      params: ['1MaxKapqcv8KVHw1mTzZd23uvntnLABvnB'],
+      params: [scripthash],
     });
     TestUtils.closeSocket(socket);
     expect(response.result[0]).have.property('height');
@@ -47,10 +49,14 @@ describe('Electrum blockchain method tests', () => {
 
   it('should get address mempool', async () => {
     const socket = await TestUtils.constructSocket('185.64.116.15', 50002);
-    const response = await Blockchain.addressGetMempool({
+
+    const network = bitcoinjs.networks.bitcoin;
+    const scripthash = Utils.addressToScriptHash('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', network);
+
+    const response = await Blockchain.scriptHashGetMempool({
       socket,
       id: 1,
-      params: ['1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'],
+      params: [scripthash],
     });
     TestUtils.closeSocket(socket);
     expect(response.result).be.an('array');
@@ -58,22 +64,14 @@ describe('Electrum blockchain method tests', () => {
 
   it('should get address balance', async () => {
     const socket = await TestUtils.constructSocket('185.64.116.15', 50002);
-    const response = await Blockchain.addressGetBalance({
-      socket,
-      id: 1,
-      params: ['1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'],
-    });
-    TestUtils.closeSocket(socket);
-    expect(response.result).to.have.property('confirmed');
-    expect(response.result).to.have.property('unconfirmed');
-  });
 
-  it('should get address proof', async () => {
-    const socket = await TestUtils.constructSocket('185.64.116.15', 50002);
-    const response = await Blockchain.addressGetBalance({
+    const network = bitcoinjs.networks.bitcoin;
+    const scripthash = Utils.addressToScriptHash('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', network);
+
+    const response = await Blockchain.scriptHashGetBalance({
       socket,
       id: 1,
-      params: ['1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'],
+      params: [scripthash],
     });
     TestUtils.closeSocket(socket);
     expect(response.result).to.have.property('confirmed');
@@ -82,25 +80,20 @@ describe('Electrum blockchain method tests', () => {
 
   it('should list address unspent', async () => {
     const socket = await TestUtils.constructSocket('185.64.116.15', 50002);
-    const response = await Blockchain.addressListUnspent({
+
+    const network = bitcoinjs.networks.bitcoin;
+    const scripthash = Utils.addressToScriptHash('12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX', network);
+
+    const response = await Blockchain.scriptHashListUnspent({
       socket,
       id: 1,
-      params: ['1MaxKapqcv8KVHw1mTzZd23uvntnLABvnB'],
+      params: [scripthash],
     });
     TestUtils.closeSocket(socket);
     expect(response.result[0]).to.have.property('tx_hash');
     expect(response.result[0]).to.have.property('height');
-  });
-
-  it('should give address given a utxo', async () => {
-    const socket = await TestUtils.constructSocket('185.64.116.15', 50002);
-    const response = await Blockchain.utxoGetAddress({
-      socket,
-      id: 1,
-      params: ['3387418aaddb4927209c5032f515aa442a6587d6e54677f08a03b8fa7789e688', '1'],
-    });
-    TestUtils.closeSocket(socket);
-    expect(response.result).to.equal('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa');
+    expect(response.result[0]).to.have.property('tx_pos');
+    expect(response.result[0]).to.have.property('value');
   });
 
   it('should get block header from block number', async () => {
@@ -108,12 +101,15 @@ describe('Electrum blockchain method tests', () => {
     const response = await Blockchain.blockGetHeader({
       socket,
       id: 1,
-      params: ['0'],
+      params: ['1'],
     });
     TestUtils.closeSocket(socket);
-    expect(response.result).to.have.property('block_height');
-    expect(response.result).to.have.property('merkle_root');
-    expect(response.result.merkle_root).to.equal('4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b');
+    // The precise format of a deserialized block header varies by coin, and also potentially by height for the same coin.
+    // Detailed knowledge of the meaning of a block header is neither necessary nor appropriate in the server.
+    // Consequently they were removed from the protocol in version 1.4.
+
+    // Guess you can do: bitcoinjs.Block.fromHex(response.result)
+    expect(response.result).to.equal('010000006fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000982051fd1e4ba744bbbe680e1fee14677ba1a3c3540bf7b1cdb606e857233e0e61bc6649ffff001d01e36299');
   });
 
   it('should get merkle tree from transaction hash', async () => {

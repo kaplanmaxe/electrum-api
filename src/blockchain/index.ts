@@ -2,15 +2,6 @@ import { ElectrumUtil } from '../util';
 import { IElectrumRequestBody } from '../';
 
 class Blockchain {
-  static async numBlocksSubscribe(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.numblocks.subscribe',
-      params: request.params || [],
-    });
-    return result;
-  }
 
   static async headersSubscribe(request: IElectrumRequestBody) {
     const result = await ElectrumUtil.makeRequest({
@@ -22,71 +13,51 @@ class Blockchain {
     return result;
   }
 
-  static async addressSubscribe(request: IElectrumRequestBody) {
+  static async scriptHashSubscribe(request: IElectrumRequestBody) {
     const result = await ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
-      method: 'blockchain.address.subscribe',
+      method: 'blockchain.scripthash.subscribe',
       params: request.params || [],
     });
     return result;
   }
 
-  static async addressGetHistory(request: IElectrumRequestBody) {
+  static async scriptHashGetHistory(request: IElectrumRequestBody) {
     const result = await ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
-      method: 'blockchain.address.get_history',
+      method: 'blockchain.scripthash.get_history',
       params: request.params || [],
     });
     return result;
   }
 
-  static async addressGetMempool(request: IElectrumRequestBody) {
+  static async scriptHashGetMempool(request: IElectrumRequestBody) {
     const result = await ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
-      method: 'blockchain.address.get_mempool',
+      method: 'blockchain.scripthash.get_mempool',
       params: request.params || [],
     });
     return result;
   }
 
-  static async addressGetBalance(request: IElectrumRequestBody) {
+  static async scriptHashGetBalance(request: IElectrumRequestBody) {
     const result = await ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
-      method: 'blockchain.address.get_balance',
+      method: 'blockchain.scripthash.get_balance',
       params: request.params || [],
     });
     return result;
   }
 
-  static async addressGetProof(request: IElectrumRequestBody) {
+  static async scriptHashListUnspent(request: IElectrumRequestBody) {
     const result = await ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
-      method: 'blockchain.address.get_proof',
-      params: request.params || [],
-    });
-    return result;
-  }
-
-  static async addressListUnspent(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.address.listunspent',
-      params: request.params || [],
-    });
-    return result;
-  }
-
-  static async utxoGetAddress(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.utxo.get_address',
+      method: 'blockchain.scripthash.listunspent',
       params: request.params || [],
     });
     return result;
@@ -96,7 +67,7 @@ class Blockchain {
     const result = await ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
-      method: 'blockchain.block.get_header',
+      method: 'blockchain.block.header',
       params: request.params || [],
     });
     return result;
