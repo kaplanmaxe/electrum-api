@@ -3,114 +3,57 @@ import { IElectrumRequestBody } from '../';
 
 class Blockchain {
 
-  static async headersSubscribe(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
+  static async request(request: IElectrumRequestBody, path: string) {
+    return ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
-      method: 'blockchain.headers.subscribe',
+      method: path,
       params: request.params || [],
     });
-    return result;
+  }
+
+  static async headersSubscribe(request: IElectrumRequestBody) {
+    return Blockchain.request(request, 'blockchain.headers.subscribe');
   }
 
   static async scriptHashSubscribe(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.scripthash.subscribe',
-      params: request.params || [],
-    });
-    return result;
+    return Blockchain.request(request, 'blockchain.scripthash.subscribe');
   }
 
   static async scriptHashGetHistory(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.scripthash.get_history',
-      params: request.params || [],
-    });
-    return result;
+    return Blockchain.request(request, 'blockchain.scripthash.get_history');
   }
 
   static async scriptHashGetMempool(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.scripthash.get_mempool',
-      params: request.params || [],
-    });
-    return result;
+    return Blockchain.request(request, 'blockchain.scripthash.get_mempool');
   }
 
   static async scriptHashGetBalance(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.scripthash.get_balance',
-      params: request.params || [],
-    });
-    return result;
+    return Blockchain.request(request, 'blockchain.scripthash.get_balance');
   }
 
   static async scriptHashListUnspent(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.scripthash.listunspent',
-      params: request.params || [],
-    });
-    return result;
+    return Blockchain.request(request, 'blockchain.scripthash.listunspent');
   }
 
   static async blockGetHeader(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.block.header',
-      params: request.params || [],
-    });
-    return result;
+    return Blockchain.request(request, 'blockchain.block.header');
   }
 
   static async transactionBroadcast(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.transaction.broadcast',
-      params: request.params || [],
-    });
-    return result;
+    return Blockchain.request(request, 'blockchain.transaction.broadcast');
   }
 
   static async transactionGetMerkle(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.transaction.get_merkle',
-      params: request.params || [],
-    });
-    return result;
+    return Blockchain.request(request, 'blockchain.transaction.get_merkle');
   }
 
   static async transactionGet(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.transaction.get',
-      params: request.params || [],
-    });
-    return result;
+    return Blockchain.request(request, 'blockchain.transaction.get');
   }
 
   static async estimateFee(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'blockchain.estimatefee',
-      params: request.params || [],
-    });
-    return result;
+    return Blockchain.request(request, 'blockchain.estimatefee');
   }
 }
 
