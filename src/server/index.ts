@@ -3,44 +3,29 @@ import { IElectrumRequestBody } from '../';
 
 class Server {
 
-  static async version(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
+  static async request(request: IElectrumRequestBody, path: string) {
+    return ElectrumUtil.makeRequest({
       socket: request.socket,
       id: request.id,
-      method: 'server.version',
+      method: path,
       params: request.params || [],
     });
-    return result;
+  }
+
+  static async version(request: IElectrumRequestBody) {
+    return Server.request(request, 'server.version');
   }
 
   static async banner(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'server.banner',
-      params: request.params || [],
-    });
-    return result;
+    return Server.request(request, 'server.banner');
   }
 
   static async donationAddress(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'server.donation_address',
-      params: request.params || [],
-    });
-    return result;
+    return Server.request(request, 'server.donation_address');
   }
 
   static async peersSubscribe(request: IElectrumRequestBody) {
-    const result = await ElectrumUtil.makeRequest({
-      socket: request.socket,
-      id: request.id,
-      method: 'server.peers.subscribe',
-      params: request.params || [],
-    });
-    return result;
+    return Server.request(request, 'server.peers.subscribe');
   }
 }
 
